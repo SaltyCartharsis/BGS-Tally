@@ -53,6 +53,9 @@ class State:
         self.FcLocker:tk.StringVar = tk.StringVar(value=config.get_str('BGST_FcLocker', default="Both"))
         self.FcCooldown:tk.StringVar = tk.StringVar(value=config.get_str('BGST_FcCooldown', default="both"))
 
+        # New: System Control Status
+        self.EnableOverlaySystemControl:tk.StringVar = tk.StringVar(value=config.get_str('BGST_EnableOverlaySystemControl', default=CheckStates.STATE_ON))
+
         # Legacy values migrating to new names
         # TODO: Remove migration in future version
         self.ShowZeroActivitySystems:tk.StringVar = tk.StringVar(value=config.get_str('BGST_ShowZeroActivity', default=config.get_str('XShowZeroActivity', default=CheckStates.STATE_ON)))
@@ -106,6 +109,9 @@ class State:
         self.enable_overlay_objectives:bool = (self.EnableOverlayObjectives.get() == CheckStates.STATE_ON)
         self.enable_overlay_colonisation:bool = (self.EnableOverlayColonisation.get() == CheckStates.STATE_ON) and (self.ColonisationStatus.get() == CheckStates.STATE_ON)
         self.enable_overlay_carrier:bool = (self.EnableOverlayCarrier.get() == CheckStates.STATE_ON)
+        
+        # New: Sysstem Control Status
+        self.enable_overlay_system_control:bool = (self.EnableOverlaySystemControl.get() == CheckStates.STATE_ON)
 
         # Other booleans
         self.abbreviate_faction_names:bool = (self.AbbreviateFactionNames.get() == CheckStates.STATE_ON)
@@ -161,6 +167,9 @@ class State:
         config.set('BGST_ColonisationRCAPIKey', self.ColonisationRCAPIKey.get())
         config.set('BGST_FavouriteActivityMode', self.FavouriteActivityMode.get())
         config.set('BGST_UseColonisationName', self.UseColonisationName.get())
+
+        # New: Sysstem Control Status
+        config.set('BGST_EnableOverlaySystemControl', self.EnableOvrlaySystemControl.get()
 
         # Persistent values
         config.set('BGST_CurrentSystemID', self.current_system_id if self.current_system_id != None else "")
